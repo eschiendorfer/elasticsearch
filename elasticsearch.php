@@ -28,6 +28,13 @@ if (!defined('_TB_VERSION_')) {
 
 require_once __DIR__.'/vendor/autoload.php';
 
+require_once __DIR__.'/classes/Fetcher.php';
+require_once __DIR__.'/classes/Indexer.php';
+require_once __DIR__.'/classes/IndexStatus.php';
+require_once __DIR__.'/classes/Meta.php';
+require_once __DIR__.'/classes/MetaAttributesTrait.php';
+require_once __DIR__.'/classes/ModuleAjaxTrait.php';
+
 /**
  * Class Elasticsearch
  */
@@ -885,7 +892,7 @@ class Elasticsearch extends Module
                 'success' => false,
             ]));
         }
-        $amount = (int) (Configuration::get(static::INDEX_CHUNK_SIZE) ?: 100);
+        $amount = (int) (Configuration::get(static::INDEX_CHUNK_SIZE) ?: 300);
         if (!$amount) {
             $amount = 100;
         }

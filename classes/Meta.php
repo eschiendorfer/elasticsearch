@@ -30,6 +30,12 @@ if (!defined('_TB_VERSION_')) {
     exit;
 }
 
+require_once __DIR__.'/Fetcher.php';
+require_once __DIR__.'/Indexer.php';
+require_once __DIR__.'/IndexStatus.php';
+require_once __DIR__.'/MetaAttributesTrait.php';
+require_once __DIR__.'/ModuleAjaxTrait.php';
+
 /**
  * Class SearchMeta
  *
@@ -147,6 +153,9 @@ class Meta extends ObjectModel
                 unset($metas[$index]);
             }
         }
+
+        \Configuration::updateGlobalValue('GENZO_ELASTICSEARCH', 'here');
+        \Configuration::updateGlobalValue('GENZO_ELASTICSEARCH_METAS', print_r($metas, true));
 
         $metaPrimary = bqSQL(Meta::$definition['primary']);
         $metaTable = bqSQL(Meta::$definition['table']);
